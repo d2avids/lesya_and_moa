@@ -3,16 +3,22 @@ from django.core.exceptions import ValidationError
 from django.core.validators import (MinValueValidator, MaxValueValidator,
                                     RegexValidator)
 from django.db import models
+from users.managers import CustomUserManager
 
 
 class User(AbstractUser):
     EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['tasks_type',]
     email = models.EmailField(
         verbose_name='Email',
         max_length=254,
-        default='example@ya.ru'
+        default='example@ya.ru',
+        unique=True,
+        blank=False,
+        null=False
     )
-
+    username = None
     INDIVIDUAL = 'индивидуальный'
     GROUP = 'групповой'
 
@@ -32,6 +38,7 @@ class User(AbstractUser):
                      'подтверждение ознакомления с политикой конфиденциальности',
         default=True
     )
+    objects = CustomUserManager()
 
     def clean(self):
         super().clean()

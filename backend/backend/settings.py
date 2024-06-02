@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'drf_spectacular',
     'djoser',
 ]
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -170,9 +171,9 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
-AUTHENTICATION_BACKENDS = [
-    'api.backends.UserModelBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'api.backends.UserModelBackend',
+# ]
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -183,15 +184,15 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_RETYPE': False,
     'HIDE_USERS': False,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    # 'SERIALIZERS': {
-    #     'user': 'users.serializers.ShortUserSerializer',
-    #     'current_user': 'users.serializers.RSOUserSerializer',
-    #     'user_create_password_retype': 'users.serializers.UserCreateSerializer',
-    # },
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'user': 'djoser.serializers.UserSerializer',
+        'current_user': 'djoser.serializers.UserSerializer',
+    },
     'PERMISSIONS': {
         'user_list': ['rest_framework.permissions.IsAuthenticated'],
         'user': ['rest_framework.permissions.IsAuthenticated'],
-    }
+    },
 }
 
 REDIS_HOST = '127.0.0.1' if RUN_TYPE != 'DOCKER' else 'redis'

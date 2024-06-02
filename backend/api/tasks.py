@@ -24,6 +24,6 @@ def send_reset_password_email_without_user(data: dict):
         )
     except (User.DoesNotExist, AttributeError):
         return Response(
-            {'detail': 'Ошибка в email-адресе'},
+            {'detail': 'Ошибка в email-адресе.'},
             status=status.HTTP_204_NO_CONTENT
         )

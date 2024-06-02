@@ -18,3 +18,4 @@ class UserAdmin(BaseUserAdmin):
 
     filter_horizontal = ()
     fieldsets = ()
+    ordering = ('email',)
