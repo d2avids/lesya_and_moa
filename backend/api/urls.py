@@ -1,10 +1,9 @@
 from django.urls import path, include
-from djoser.views import UserViewSet
 
 from rest_framework.routers import DefaultRouter
 
 from api import views
-from api.constants import POST_RESET_PASSWORD, CREATE_METHOD
+from api.constants import POST_RESET_PASSWORD
 from users.views import CustomUserViewSet
 
 router = DefaultRouter()

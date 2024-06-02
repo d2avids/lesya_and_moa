@@ -9,7 +9,7 @@ from users.managers import CustomUserManager
 class User(AbstractUser):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['tasks_type',]
+    REQUIRED_FIELDS = ['password',]
     email = models.EmailField(
         verbose_name='Email',
         max_length=254,

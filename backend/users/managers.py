@@ -1,6 +1,13 @@
 from django.contrib.auth.models import BaseUserManager
 
+
 class CustomUserManager(BaseUserManager):
+    """Кастомный менеджер для модели пользователя.
+
+    Опеределен для работы без поля username при наследовании модели User
+    от AbstractUser.
+    """
+
     def create_user(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Поле Email должно быть заполнено')
