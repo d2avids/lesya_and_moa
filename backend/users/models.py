@@ -13,7 +13,7 @@ class User(AbstractUser):
     email = models.EmailField(
         verbose_name='Email',
         max_length=254,
-        default='example@ya.ru',
+        # default='example@ya.ru',
         unique=True,
         blank=False,
         null=False
@@ -64,7 +64,7 @@ class Region(models.Model):
 
 
 class Child(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         'User',
         verbose_name='Родитель/Логопед',
         on_delete=models.CASCADE,
@@ -152,7 +152,7 @@ class Child(models.Model):
 
 
 class ChildrenGroup(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         'User',
         verbose_name='Педагог',
         on_delete=models.CASCADE,

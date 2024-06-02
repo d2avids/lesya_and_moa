@@ -5,8 +5,8 @@ from djoser.views import UserViewSet
 
 from api.tasks import send_reset_password_email_without_user
 from users.models import Child, ChildrenGroup, User
-from users.serializers import ChildSerializer, EmailSerializer
-from users.permissions import IsIndividual, IsParent
+from users.serializers import ChildSerializer, ChildrenGroupSerializer, EmailSerializer
+from users.permissions import IsEducator, IsGroup, IsIndividual, IsParent
 
 
 class CustomUserViewSet(UserViewSet):
@@ -65,13 +65,41 @@ class ChildrenViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, IsParent)
 
     def get_queryset(self):
-        return self.queryset.filter(user_id=self.request.user)
+        return self.queryset.filter(user_id=self.request.user.id)
 
     def get_permissions(self):
         if self.action == 'create':
             return [permissions.IsAuthenticated(), IsIndividual()]
         return super().get_permissions()
 
-    def save(self, *args, **kwargs):
-        self.instance.user_id = self.request.user
-        return super().save(*args, **kwargs)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class ChildrenGroupViewSet(viewsets.ModelViewSet):
+    """
+    Вьюсет для работы с группой.
+
+    Доступ у пользователей с групповым типом аккаунта
+    (педагоги).
+    """
+    queryset = ChildrenGroup.objects.all()
+    serializer_class = ChildrenGroupSerializer
+    permission_classes = (permissions.IsAuthenticated, IsEducator)
+
+    def get_queryset(self):
+        return self.queryset.filter(user_id=self.request.user.id)
+
+    def get_permissions(self):
+        if self.action == 'create':
+            return [permissions.IsAuthenticated(), IsGroup()]
+        return super().get_permissions()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
