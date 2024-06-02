@@ -1,11 +1,12 @@
-from rest_framework import permissions, status
+from rest_framework import permissions, status, permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from djoser.views import UserViewSet
 
 from api.tasks import send_reset_password_email_without_user
-from users.models import User
-from users.serializers import EmailSerializer
+from users.models import Child, ChildrenGroup, User
+from users.serializers import ChildSerializer, EmailSerializer
+from users.permissions import IsIndividual, IsParent
 
 
 class CustomUserViewSet(UserViewSet):
@@ -28,7 +29,6 @@ class CustomUserViewSet(UserViewSet):
         Вид ссылки в письме:
         'https://our.site.name/password/reset/confirm/{uid}/{token}'
         """
-
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.data
@@ -51,3 +51,27 @@ class CustomUserViewSet(UserViewSet):
                 )},
                 status=status.HTTP_409_CONFLICT
             )
+
+
+class ChildrenViewSet(viewsets.ModelViewSet):
+    """
+    Вьюсет для работы с карточкой ребенка.
+
+    Доступ у пользователей с индивидуальным типом аккаунта
+    (родители и логопеды).
+    """
+    queryset = Child.objects.all()
+    serializer_class = ChildSerializer
+    permission_classes = (permissions.IsAuthenticated, IsParent)
+
+    def get_queryset(self):
+        return self.queryset.filter(user_id=self.request.user)
+
+    def get_permissions(self):
+        if self.action == 'create':
+            return [permissions.IsAuthenticated(), IsIndividual()]
+        return super().get_permissions()
+
+    def save(self, *args, **kwargs):
+        self.instance.user_id = self.request.user
+        return super().save(*args, **kwargs)

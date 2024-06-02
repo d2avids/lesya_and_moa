@@ -3,14 +3,17 @@ from django.db import models
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        verbose_name='Название задания',
+        max_length=100
+    )
 
     class Meta:
         verbose_name = 'Задание'
         verbose_name_plural = 'Задания'
 
     def __str__(self):
-        return f'{self.pk} - {self.name}'
+        return f'Задание {self.pk} - {self.name}'
 
 
 class TaskAnswer(models.Model):
@@ -36,17 +39,22 @@ class TaskAnswer(models.Model):
         null=True,
         verbose_name='Ребенок'
     )
-    is_correct = models.BooleanField(verbose_name='Верность ответа')
-    is_started = models.BooleanField(verbose_name='Факт прохождения задания')
+    is_correct = models.BooleanField(
+        default=False,
+        verbose_name='Верность ответа'
+    )
+    is_started = models.BooleanField(
+        verbose_name='Факт прохождения задания'
+    )
 
     class Meta:
         verbose_name_plural = 'Ответы на задания'
         verbose_name = 'Ответ на задание'
 
     def clean(self):
-        if not self.children_group and not self.children:
+        if not self.children_group and not self.child:
             raise ValidationError('Заполните одно из полей: "Группа детей" или "Ребенок".')
-        if self.children_group and self.children:
+        if self.children_group and self.child:
             raise ValidationError('Одновременно можно заполнить только одно поле: "Группа детей" или "Ребенок".')
 
     def __str__(self):

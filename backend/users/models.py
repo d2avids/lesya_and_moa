@@ -66,7 +66,7 @@ class Region(models.Model):
 class Child(models.Model):
     user_id = models.ForeignKey(
         'User',
-        verbose_name='Аккаунт привязки',
+        verbose_name='Родитель/Логопед',
         on_delete=models.CASCADE,
         related_name='children',
     )
@@ -136,19 +136,25 @@ class Child(models.Model):
         default=False
     )
     data_processing_agreement = models.BooleanField(
-        verbose_name='согласие на обработку личных данных и '
-                     'подтверждение ознакомления с политической конфиденциальностью'
+        verbose_name=(
+            'согласие на обработку личных данных и '
+            'подтверждение ознакомления с политической конфиденциальностью'
+        ),
     )
 
     class Meta:
         verbose_name_plural = 'Дети'
         verbose_name = 'Ребенок'
 
+    def __str__(self):
+        return (f'Ребенок {self.first_name if self.first_name else ""}'
+                f' {self.last_name} id {self.pk}')
+
 
 class ChildrenGroup(models.Model):
     user_id = models.ForeignKey(
         'User',
-        verbose_name='Аккаунт привязки',
+        verbose_name='Педагог',
         on_delete=models.CASCADE,
         related_name='children_groups',
     )
@@ -199,3 +205,6 @@ class ChildrenGroup(models.Model):
     class Meta:
         verbose_name_plural = 'Группы детей'
         verbose_name = 'Группа детей'
+
+    def __str__(self):
+        return f'Группа детей {self.name} id {self.pk}'

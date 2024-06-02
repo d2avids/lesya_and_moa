@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.models import User
+from users.models import Child, User
 
 
 class EmailSerializer(serializers.ModelSerializer):
@@ -18,3 +18,9 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+class ChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
+        fields = '__all__'
