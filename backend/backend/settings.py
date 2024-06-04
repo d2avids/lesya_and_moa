@@ -216,7 +216,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-CSRF_COOKIE_DOMAIN = 'http://31.129.98.70/'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8080',
@@ -224,7 +223,6 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:80',
     'http://localhost',
     'http://31.129.98.70/',
-    'http://31.129.98.70:8000'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -235,7 +233,6 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
     'https://127.0.0.1',
     'http://31.129.98.70/',
-    'http://31.129.98.70:8000'
 ]
 
 # EMAIL BACKEND
