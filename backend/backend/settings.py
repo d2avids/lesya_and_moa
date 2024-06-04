@@ -222,7 +222,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8080',
     'http://localhost:80',
     'http://localhost',
-    'http://31.129.98.70/'
+    'http://31.129.98.70/',
+    'http://31.129.98.70/:8000'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -232,7 +233,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8080',
     'http://localhost',
     'https://127.0.0.1',
-    'http://31.129.98.70/'
+    'http://31.129.98.70/',
+    'http://31.129.98.70/:8000'
 ]
 
 # EMAIL BACKEND
