@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build_bot_and_push_to_docker_hub:
+  build_image_and_push_to_docker_hub:
     name: Push bot Docker image to DockerHub
     runs-on: ubuntu-latest
     steps:
@@ -23,7 +23,7 @@ jobs:
           context: ./backend/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/lesya_and_moa:latest
-  run_bot_container:
+  setup_and_run_containers:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -36,6 +36,14 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           source: "docker-compose.yml"
+          target: /root/lesya_and_moa
+      - name: Copy nginx.conf
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          source: "nginx.conf"
           target: /root/lesya_and_moa
       - name: Login to Docker
         uses: docker/login-action@v2
