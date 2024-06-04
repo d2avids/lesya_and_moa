@@ -73,7 +73,6 @@ class ChildrenGroupSerializer(serializers.ModelSerializer):
             'number_of_students',
             'average_age',
             'region',
-            'data_processing_agreement',
             'school',
         )
 
