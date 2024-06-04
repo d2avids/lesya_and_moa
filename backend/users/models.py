@@ -181,8 +181,8 @@ class ChildrenGroup(models.Model):
         max_digits=4,
         decimal_places=2,
         validators=[
-            MinValueValidator(1),
-            MaxValueValidator(99),
+            MinValueValidator(1.0),
+            MaxValueValidator(99.0),
         ],
         error_messages={
             'invalid': 'Средний возраст должен быть от 1 до 99'
