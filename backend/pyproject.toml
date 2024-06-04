@@ -18,7 +18,6 @@ django-celery-beat = "^2.6.0"
 django-redis = "^5.4.0"
 django-import-export = "^4.0.7"
 psycopg2-binary = "^2.9.9"
-psycopg2 = "^2.9.9"
 
 
 [build-system]
