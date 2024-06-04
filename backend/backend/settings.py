@@ -216,6 +216,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+CSRF_COOKIE_DOMAIN = 'http://31.129.98.70/'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8080',
