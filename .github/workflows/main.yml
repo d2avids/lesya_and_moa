@@ -26,6 +26,8 @@ jobs:
   setup_and_run_containers:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    needs:
+      - build_image_and_push_to_docker_hub
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
