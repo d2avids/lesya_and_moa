@@ -65,7 +65,7 @@ class ChildrenViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, IsParent)
 
     def get_queryset(self):
-        return self.queryset.filter(user_id=self.request.user.id)
+        return super().get_queryset().filter(user_id=self.request.user.id)
 
     def get_permissions(self):
         if self.action == 'create':

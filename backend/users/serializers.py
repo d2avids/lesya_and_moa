@@ -79,3 +79,26 @@ class ChildrenGroupSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         self.fields['region'] = RegionSerializer(read_only=True)
         return super().to_representation(instance)
+
+
+class ShortChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
+        fields = (
+            'id',
+            'first_name',
+            'last_name',
+            'sex',
+            'age',
+        )
+
+
+class ShortChildrenGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChildrenGroup
+        fields = (
+            'id',
+            'name',
+            'number_of_students',
+            'average_age',
+        )

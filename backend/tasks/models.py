@@ -13,7 +13,7 @@ class Task(models.Model):
         verbose_name_plural = 'Задания'
 
     def __str__(self):
-        return f'Задание {self.pk} - {self.name}'
+        return self.name
 
 
 class TaskAnswer(models.Model):
@@ -44,7 +44,8 @@ class TaskAnswer(models.Model):
         verbose_name='Верность ответа'
     )
     is_started = models.BooleanField(
-        verbose_name='Факт прохождения задания'
+        default=True,
+        verbose_name='Задание начато'
     )
 
     class Meta:
