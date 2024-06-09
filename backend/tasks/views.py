@@ -1,12 +1,14 @@
 from rest_framework import viewsets, permissions, serializers
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from drf_spectacular.utils import (
     OpenApiParameter, extend_schema, extend_schema_view, inline_serializer
 )
 
-from .models import TaskAnswer
+from .models import Task, TaskAnswer
 from .serializers import TaskAnswerSerializer, TaskAnswerUpdateSerializer
-from tasks.permissions import IsParentOrEducator
-from users.models import User
+from .permissions import IsParentOrEducator
+from users.models import Child, ChildrenGroup, User
 
 
 @extend_schema_view(
@@ -143,6 +145,25 @@ from users.models import User
             )
         ]
     ),
+    check_progress=extend_schema(
+        description='Проверить прогресс выполнения задания.',
+        summary='Проверить прогресс выполнения задания.',
+        parameters=[
+            OpenApiParameter(
+                'child_or_group_id',
+                int,
+                OpenApiParameter.PATH,
+                required=True,
+                description='id ребенка или группы детей',
+            ),
+        ],
+        responses=inline_serializer(
+            name='InlineSerializerProgress',
+            fields={
+                'progress': serializers.IntegerField()
+            }
+        )
+    )
 )
 class TaskAnswerViewSet(viewsets.ModelViewSet):
     """
@@ -184,3 +205,23 @@ class TaskAnswerViewSet(viewsets.ModelViewSet):
         if self.request.method == 'PATCH' or self.request.method == 'PUT':
             return TaskAnswerUpdateSerializer
         return super().get_serializer_class()
+
+    @action(detail=False,
+            methods=['get'])
+    def check_progress(self, request, child_or_group_id, *args, **kwargs):
+        user_type = request.user.tasks_type
+        count_questions = Task.objects.count()
+        if user_type == User.INDIVIDUAL:
+            count_tasks_answers = TaskAnswer.objects.filter(
+                child_id=child_or_group_id
+            ).count()
+            return Response(
+                {'progress': round(count_tasks_answers / count_questions * 100)}
+            )
+        elif user_type == User.GROUP:
+            count_tasks_answers = TaskAnswer.objects.filter(
+                children_group_id=child_or_group_id
+            ).count()
+            return Response(
+                {'progress': round(count_tasks_answers / count_questions * 100)}
+            )
