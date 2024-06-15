@@ -2,8 +2,7 @@ from rest_framework import permissions, status, permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from djoser.views import UserViewSet
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+
 
 from api.tasks import send_reset_password_email_without_user
 from users.models import Child, ChildrenGroup, User
@@ -54,32 +53,6 @@ class CustomUserViewSet(UserViewSet):
                 )},
                 status=status.HTTP_409_CONFLICT
             )
-
-    @swagger_auto_schema(
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'email': openapi.Schema(type=openapi.TYPE_STRING),
-                'tasks_type': openapi.Schema(
-                    type=openapi.TYPE_STRING, default='индивидуальный'
-                ),
-                'data_processing_agreement': openapi.Schema(
-                    type=openapi.TYPE_BOOLEAN, default=True
-                ),
-                'password': openapi.Schema(type=openapi.TYPE_STRING),
-                're_password': openapi.Schema(type=openapi.TYPE_STRING),
-            }
-        )
-    )
-    def create(self, request, *args, **kwargs):
-        """
-        Регистрация юзера.
-
-        Схема в сваггере будет отображаться только при определении в урлах
-        кастомного эндпоинта регистрации.
-        Оставляю эту схему и пояснение здесь для наглядности.
-        """
-        return super().create(request, *args, **kwargs)
 
 
 class ChildrenViewSet(viewsets.ModelViewSet):
