@@ -9,7 +9,10 @@ class UserAdmin(BaseUserAdmin):
     from django.utils.translation import gettext_lazy as _
 
     fieldsets = (
-        (None, {"fields": ("password", "tasks_type", "data_processing_agreement")}),
+        (
+            None,
+            {"fields": ("password", "tasks_type", "data_processing_agreement")}
+        ),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
@@ -34,7 +37,9 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
-    list_display = ("id", "email", "first_name", "last_name", "is_staff")
+    list_display = (
+        "id", "email", "first_name", "last_name", "tasks_type", "is_staff"
+    )
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
     search_fields = ("first_name", "last_name", "email")
     ordering = ("email",)

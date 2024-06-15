@@ -13,7 +13,6 @@ class User(AbstractUser):
     email = models.EmailField(
         verbose_name='Email',
         max_length=254,
-        # default='example@ya.ru',
         unique=True,
         blank=False,
         null=False
