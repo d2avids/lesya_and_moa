@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
@@ -48,6 +49,7 @@ INSTALLED_APPS += [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -216,15 +218,15 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+CORS_ALLOW_ALL_ORIGINS = True if os.getenv('CORS_ALLOW_ALL_ORIGINS', False) == 'True' else False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8080',
     'http://127.0.0.1:8080',
     'http://localhost:80',
     'http://localhost',
-    'http://31.129.98.70/',
+    'http://31.129.98.70',
 ]
-
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8080',
@@ -232,7 +234,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8080',
     'http://localhost',
     'https://127.0.0.1',
-    'http://31.129.98.70/',
+    'http://31.129.98.70',
 ]
 
 # EMAIL BACKEND

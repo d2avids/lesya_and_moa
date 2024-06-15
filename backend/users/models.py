@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import (MinValueValidator, MaxValueValidator,
@@ -180,8 +182,8 @@ class ChildrenGroup(models.Model):
         max_digits=4,
         decimal_places=2,
         validators=[
-            MinValueValidator(1.0),
-            MaxValueValidator(99.0),
+            MinValueValidator(Decimal('1.00')),
+            MaxValueValidator(Decimal('99.00')),
         ],
         error_messages={
             'invalid': 'Средний возраст должен быть от 1 до 99'
