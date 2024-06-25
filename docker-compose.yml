@@ -46,7 +46,7 @@ services:
     environment:
       - GUNICORN_CMD_ARGS=--timeout 360
   frontend:
-    image: nem1zida/lesya_and_moa_frontend:latest
+    image: teamcode01/lesya_and_moa_frontend:latest
     restart: always
     env_file: .env
     depends_on:
