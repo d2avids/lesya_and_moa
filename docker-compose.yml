@@ -4,6 +4,7 @@ volumes:
   static:
   media:
   pg_data:
+  frontend_dist:
 
 networks:
   internal:
@@ -44,6 +45,16 @@ services:
       - internal
     environment:
       - GUNICORN_CMD_ARGS=--timeout 360
+  frontend:
+    image: nem1zida/lesya_and_moa_frontend:latest
+    restart: always
+    env_file: .env
+    depends_on:
+      - backend
+    volumes:
+      - frontend_dist:/app/src/app/dist
+    networks:
+      - internal
   celery_worker:
     image: d2avids/lesya_and_moa:latest
     restart: always
