@@ -14,6 +14,7 @@ router.register(r'children', user_views.ChildrenViewSet, basename='children')
 router.register(r'groups', user_views.ChildrenGroupViewSet, basename='groups')
 router.register(r'answers/(?P<child_or_group_id>\d+)',
                 task_views.TaskAnswerViewSet, basename='answers')
+router.register(r'regions', views.RegionViewSet, basename='regions')
 
 
 urlpatterns = [
