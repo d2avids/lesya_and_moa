@@ -5,10 +5,10 @@ from drf_spectacular.utils import (
     OpenApiParameter, extend_schema, extend_schema_view, inline_serializer
 )
 
-from .models import Task, TaskAnswer
-from .serializers import TaskAnswerSerializer, TaskAnswerUpdateSerializer
-from .permissions import IsParentOrEducator
-from users.models import Child, ChildrenGroup, User
+from tasks.models import Task, TaskAnswer
+from tasks.serializers import TaskAnswerSerializer, TaskAnswerUpdateSerializer
+from tasks.permissions import IsParentOrEducator
+from users.models import User
 
 
 @extend_schema_view(

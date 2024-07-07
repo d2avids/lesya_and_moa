@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Task, TaskAnswer
+from tasks.models import Task, TaskAnswer
 
 
 @admin.register(Task)

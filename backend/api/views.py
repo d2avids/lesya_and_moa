@@ -9,3 +9,5 @@ class TaskViewSet(RetrieveListViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = (permissions.AllowAny,)
+
+

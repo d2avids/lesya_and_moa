@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 
-from .models import User
+from users.models import User
 
 
 class IsParent(BasePermission):
