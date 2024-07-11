@@ -218,7 +218,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-CORS_ALLOW_ALL_ORIGINS = True if os.getenv('CORS_ALLOW_ALL_ORIGINS', False) == 'True' else False
+CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL_ORIGINS', False) == 'True'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8080',
