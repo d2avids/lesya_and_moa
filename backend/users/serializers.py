@@ -25,6 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id',
+            'tasks_type',
             'email',
         )
 

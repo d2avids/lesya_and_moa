@@ -179,12 +179,12 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': False,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': False,
     'PASSWORD_RESET_CONFIRM_RETYPE': False,
-    'HIDE_USERS': False,
+    'HIDE_USERS': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserCreateSerializer',
-        'user': 'djoser.serializers.UserSerializer',
-        'current_user': 'djoser.serializers.UserSerializer',
+        'user': 'users.serializers.UserSerializer',
+        'current_user': 'users.serializers.UserSerializer',
     },
     'PERMISSIONS': {
         'user_list': ['rest_framework.permissions.IsAuthenticated'],
