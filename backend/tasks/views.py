@@ -215,6 +215,8 @@ class TaskAnswerViewSet(viewsets.ModelViewSet):
             count_tasks_answers = TaskAnswer.objects.filter(
                 child_id=child_or_group_id
             ).count()
+            if count_tasks_answers == 0 or count_questions == 0:
+                return Response({'progress': 0})
             return Response(
                 {'progress': round(count_tasks_answers / count_questions * 100)}
             )
@@ -222,6 +224,8 @@ class TaskAnswerViewSet(viewsets.ModelViewSet):
             count_tasks_answers = TaskAnswer.objects.filter(
                 children_group_id=child_or_group_id
             ).count()
+            if count_tasks_answers == 0 or count_questions == 0:
+                return Response({'progress': 0})
             return Response(
                 {'progress': round(count_tasks_answers / count_questions * 100)}
             )
