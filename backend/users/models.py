@@ -32,7 +32,6 @@ class User(AbstractUser):
         verbose_name='Формат занятий',
         max_length=20,
         choices=EXERCISE_CHOICES,
-        default=INDIVIDUAL,
     )
     data_processing_agreement = models.BooleanField(
         verbose_name='согласие на обработку личных данных и '
