@@ -20,6 +20,8 @@ django-import-export = "^4.0.7"
 psycopg = {extras = ["binary"], version = "^3.1.19"}
 setuptools = "^70.0.0"
 django-cors-headers = "^4.3.1"
+eventlet = "^0.36.1"
+pillow = "^10.4.0"
 
 
 [build-system]
