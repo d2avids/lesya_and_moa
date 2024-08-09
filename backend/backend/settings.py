@@ -9,7 +9,8 @@ load_dotenv(find_dotenv())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-REGIONS_LIST_TTL = 60
+REGIONS_LIST_TTL = 120
+TASKS_LIST_TTL = 120
 
 SECRET_KEY = os.getenv('SECRET_KEY', default='key')
 
@@ -43,7 +44,8 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'users.apps.UsersConfig',
     'tasks.apps.TasksConfig',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
+    'news.apps.NewsConfig'
 ]
 
 MIDDLEWARE = [
