@@ -221,23 +221,16 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
 CORS_ALLOW_ALL_ORIGINS = os.getenv('CORS_ALLOW_ALL_ORIGINS', False) == 'True'
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8080',
-    'http://127.0.0.1:8080',
-    'http://localhost:80',
-    'http://localhost',
-    'http://31.129.98.70',
-]
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    'http://localhost:8080',
-    'http://localhost:80',
-    'http://127.0.0.1:8080',
-    'http://localhost',
-    'https://127.0.0.1',
-    'http://31.129.98.70',
-]
+
+CORS_ORIGIN_WHITELIST = os.getenv(
+    'CORS_ORIGIN_WHITELIST',
+    default='127.0.0.1,localhost,0.0.0.0'
+).split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    'CSRF_TRUSTED_ORIGINS',
+    default='127.0.0.1,localhost,0.0.0.0'
+).split(',')
+
 
 # EMAIL BACKEND
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
