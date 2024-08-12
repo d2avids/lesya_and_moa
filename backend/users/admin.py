@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from rest_framework.authtoken.models import TokenProxy
+from django.contrib.auth.models import Group
+from django.conf import settings
 
 from users.models import ChildrenGroup, User, Region, Child
 
@@ -112,3 +115,8 @@ class ChildrenGroupAdmin(admin.ModelAdmin):
     @admin.display(description='id педагога')
     def educator_id(self, obj):
         return obj.user.id
+
+
+admin.site.unregister(Group)
+if not settings.DEBUG:
+    admin.site.unregister(TokenProxy)
