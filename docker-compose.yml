@@ -44,6 +44,7 @@ services:
     networks:
       - internal
     environment:
+      - GUNICORN_WORKERS=3
       - GUNICORN_CMD_ARGS=--timeout 360
   frontend:
     image: teamcode01/lesya_and_moa_frontend:latest
