@@ -27,6 +27,10 @@ class NewsViewSet(RetrieveListViewSet):
     permission_classes = (permissions.AllowAny,)
     pagination_class = Limit100OffsetPagination
 
+    @method_decorator(cache_page(settings.TASKS_LIST_TTL))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
     def get_serializer_class(self):
         match self.action:
             case 'list':
