@@ -117,6 +117,9 @@ class ChildrenGroupAdmin(admin.ModelAdmin):
         return obj.user.id
 
 
+admin.site.site_header = 'Леся и Моа'
+admin.site.index_title = 'Администрирование леся-моа.рф'
+
 admin.site.unregister(Group)
 if not settings.DEBUG:
     admin.site.unregister(TokenProxy)
